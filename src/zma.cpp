@@ -126,11 +126,11 @@ int main( int argc, char *argv[] ) {
   zmLoadConfig();
 
   logInit(log_id_string);
-  zmFifoDbgInit( id );
 
   hwcaps_detect();
 
   Monitor *monitor = Monitor::Load(id, true, Monitor::ANALYSIS);
+  zmFifoDbgInit( monitor );  
 
   if ( monitor ) {
     Info("In mode %d/%d, warming up", monitor->GetFunction(), monitor->Enabled());

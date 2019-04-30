@@ -13,6 +13,7 @@
 
 #include "zm.h"
 #include "zm_image.h"
+#include "zm_monitor.h"
 #include "zm_stream.h"
 
 
@@ -26,7 +27,7 @@
 #define FifoDebug(level,params...)
 #endif
 void zmFifoDbgOutput( int hex, const char * const file, const int line, const int level, const char *fstring, ... ) __attribute__ ((format(printf, 5, 6)));
-int zmFifoDbgInit(int monitor_id);
+int zmFifoDbgInit(Monitor * monitor);
 
 class FifoStream : public StreamBase
 {

@@ -24,6 +24,7 @@
 #include "zm_zone.h"
 #include "zm_image.h"
 #include "zm_monitor.h"
+#include "zm_fifo.h"
 
 
 void Zone::Setup( 

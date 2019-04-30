@@ -521,8 +521,8 @@ Monitor::Monitor(
       diag_path_r = stringtf(config.record_diag_images_fifo ? "%s/%d/diagpipe-r.jpg" : "%s/%d/diag-r.jpg", storage->Path(), id);
       diag_path_d = stringtf(config.record_diag_images_fifo ? "%s/%d/diagpipe-d.jpg" : "%s/%d/diag-d.jpg", storage->Path(), id);
       if (config.record_diag_images_fifo){
-        FifoStream::fifo_create_if_missing(diag_path_r);
-        FifoStream::fifo_create_if_missing(diag_path_d);
+        FifoStream::fifo_create_if_missing(diag_path_r.c_str());
+        FifoStream::fifo_create_if_missing(diag_path_d.c_str());
       }
     }
 

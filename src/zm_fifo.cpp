@@ -10,6 +10,7 @@
 #include "zm_time.h"
 #include "zm_mpeg.h"
 #include "zm_signal.h"
+#include "zm_monitor.h"
 #include "zm_fifo.h"
 #define RAW_BUFFER 512
 static bool zm_fifodbg_inited = false;
@@ -39,9 +40,9 @@ static bool zmFifoDbgOpen(){
 	}
 	return ( true );
 }
-int zmFifoDbgInit(int monitor_id){
+int zmFifoDbgInit(Monitor *monitor){
 	zm_fifodbg_inited = true;
-	snprintf( zm_fifodbg_log, sizeof(zm_fifodbg_log), "%s/%s/%d/dbgpipe.log", staticConfig.PATH_WEB.c_str(), config.dir_events, monitor_id );
+	snprintf( zm_fifodbg_log, sizeof(zm_fifodbg_log), "%s/dbgpipe.log", monitor->getStorage()->Path() );
 	zmFifoDbgOpen();
 	return 1;
 }
@@ -181,7 +182,9 @@ void FifoStream::setStreamStart( const char * path ){
 }
 void FifoStream::setStreamStart( int monitor_id, const char * format ){
 	char diag_path[PATH_MAX];
-	char * filename;
+	const char * filename;
+	Monitor * monitor = Monitor::Load(monitor_id, false, Monitor::QUERY);
+		
 	if (! strcmp(format,"reference") )
 	{
 		stream_type = MJPEG;
@@ -198,7 +201,7 @@ void FifoStream::setStreamStart( int monitor_id, const char * format ){
 		filename = "dbgpipe.log";
 	}
 
-	snprintf( diag_path, sizeof(diag_path), "%s/%s/%d/%s", staticConfig.PATH_WEB.c_str(), config.dir_events, monitor_id, filename );
+	snprintf( diag_path, sizeof(diag_path), "%s/%s", monitor->getStorage()->Path(), filename );
 	setStreamStart(diag_path);
 }
 void FifoStream::runStream(){
