@@ -56,6 +56,7 @@ behind.
 #include "zm_db.h"
 #include "zm_signal.h"
 #include "zm_monitor.h"
+#include "zm_fifo.h"
 
 void Usage() {
   fprintf(stderr, "zma -m <monitor_id>\n");
@@ -125,6 +126,7 @@ int main( int argc, char *argv[] ) {
   zmLoadConfig();
 
   logInit(log_id_string);
+  zmFifoDbgInit( id );
 
   hwcaps_detect();
 
