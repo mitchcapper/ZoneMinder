@@ -42,7 +42,7 @@ static bool zmFifoDbgOpen(){
 }
 int zmFifoDbgInit(Monitor *monitor){
 	zm_fifodbg_inited = true;
-	snprintf( zm_fifodbg_log, sizeof(zm_fifodbg_log), "%s/dbgpipe.log", monitor->getStorage()->Path() );
+	snprintf( zm_fifodbg_log, sizeof(zm_fifodbg_log), "%s/%d/dbgpipe.log", monitor->getStorage()->Path(), monitor->Id() );
 	zmFifoDbgOpen();
 	return 1;
 }
@@ -201,7 +201,7 @@ void FifoStream::setStreamStart( int monitor_id, const char * format ){
 		filename = "dbgpipe.log";
 	}
 
-	snprintf( diag_path, sizeof(diag_path), "%s/%s", monitor->getStorage()->Path(), filename );
+	snprintf( diag_path, sizeof(diag_path), "%s/%d/%s", monitor->getStorage()->Path(), monitor->Id(), filename );
 	setStreamStart(diag_path);
 }
 void FifoStream::runStream(){
